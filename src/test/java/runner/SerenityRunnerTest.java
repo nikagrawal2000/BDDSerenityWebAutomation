@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity; 
  
 @RunWith(CucumberWithSerenity.class) 
-@CucumberOptions(plugin = { "pretty" }, monochrome = true, dryRun = true,
+@CucumberOptions(plugin = { "pretty" }, monochrome = true, dryRun = false,
 features = "src/test/resources/features/LoginPage.feature", 
  glue="stepDefinitions") 
  
