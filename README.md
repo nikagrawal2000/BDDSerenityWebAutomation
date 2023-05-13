@@ -16,9 +16,10 @@ src
     + resources
       + features                  Feature files
              search_by_keyword.feature
+      + serenity.config           Base url, webdriver, report and chromeoptions
 ```
 
-Serenity 2.2.13 introduced integration with WebdriverManager to download webdriver binaries.
+Serenity 2.2.13 integrated with WebdriverManager to download webdriver binaries.
 
 ## The sample scenario
 Both variations of the sample project uses the sample Cucumber scenario. In this scenario, Sergey (who likes to search for stuff) is performing a search on the internet:
