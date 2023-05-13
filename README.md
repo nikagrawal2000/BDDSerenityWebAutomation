@@ -15,7 +15,6 @@ src
     + java                        Test runners and supporting code
     + resources
       + features                  Feature files
-     + search                  Feature file subdirectories 
              search_by_keyword.feature
 ```
 
