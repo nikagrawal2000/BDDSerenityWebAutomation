@@ -16,7 +16,7 @@ src
     + resources
       + features                  Feature files
              search_by_keyword.feature
-      + serenity.config           Base url, webdriver, report and chromeoptions
+      + serenity.config           Base url, webdriver, report location and chromeoptions
 ```
 
 Serenity 2.2.13 integrated with WebdriverManager to download webdriver binaries.
