@@ -1,6 +1,7 @@
 package commonActions;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.logging.LogManager;
@@ -8,6 +9,7 @@ import java.util.logging.LogManager;
 import org.slf4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,30 +18,32 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import net.serenitybdd.core.pages.PageObject;
 
 public class CommonActions extends PageObject {
 
-	private static final Logger logger =  LoggerFactory.getLogger(CommonActions.class);
+	private static final Logger logger = LoggerFactory.getLogger(CommonActions.class);
 	private WebElement webElement;
-	
+
 	public Logger getLogger() {
 		return logger;
 	}
-	
+
 	public WebElement findElement(By locator) {
 		try {
-		webElement = getDriver().findElement(locator);
-		}
-		catch(Exception e) {
-			logger.error("Error while fetching element using locator "+locator.toString());
+			webElement = getDriver().findElement(locator);
+		} catch (Exception e) {
+			logger.error("Error while fetching element using locator " + locator.toString());
 			throw e;
 		}
 		return webElement;
-		
+
 	}
 
-	public  void click(By locator) {
+	public void click(By locator) {
 		webElement = findElement(locator);
 		try {
 
@@ -48,12 +52,13 @@ public class CommonActions extends PageObject {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error("unable to click on element "+e.getMessage());
+			throw e;
 		}
 	}
 
-	public  void sendText(By locator, String valueToSend) {
-		webElement=findElement(locator);
+	public void sendText(By locator, String valueToSend) {
+		webElement = findElement(locator);
 		try {
 			webElement.clear();
 			webElement.sendKeys(valueToSend);
@@ -61,13 +66,13 @@ public class CommonActions extends PageObject {
 		}
 
 		catch (Exception e) {
-			logger.error("error while inputting text on locator "+locator);
+			logger.error("error while inputting text on locator " + locator);
 			logger.error(e.getMessage());
 			throw e;
 		}
 	}
 
-	public  void selectDropdown(WebElement webElement, String valueToSelect) {
+	public void selectDropdown(WebElement webElement, String valueToSelect) {
 		try {
 			Select select = new Select(webElement);
 			select.selectByVisibleText(valueToSelect);
@@ -81,7 +86,7 @@ public class CommonActions extends PageObject {
 
 	}
 
-	public  void selectDropdownByValue(WebElement webElement, String valueToSelect) {
+	public void selectDropdownByValue(WebElement webElement, String valueToSelect) {
 		try {
 			Select select = new Select(webElement);
 			select.selectByValue(valueToSelect);
@@ -108,7 +113,7 @@ public class CommonActions extends PageObject {
 		}
 	}
 
-	public  void addProductFromList(List<WebElement> elementList, String productName) {
+	public void addProductFromList(List<WebElement> elementList, String productName) {
 		try {
 			for (WebElement ele : elementList) {
 				System.out.println(ele.getText());
@@ -122,7 +127,8 @@ public class CommonActions extends PageObject {
 
 			}
 
-			WebElement e = getDriver().findElement(By.xpath("//*[@id='blockbestsellers']//a[contains(text(),'" + productName
+			WebElement e = getDriver().findElement(By.xpath("//*[@id='blockbestsellers']//a[contains(text(),'"
+					+ productName
 					+ "')]/parent::*/following-sibling::*[@class='button-container']/a/span[text()='Add to cart']"));
 			e.click();
 			logger.info("Element Present and selected matching element successfully");
@@ -133,7 +139,6 @@ public class CommonActions extends PageObject {
 		}
 	}
 
-	
 	public void addProductFromPopularList(List<WebElement> elementList, String productName) {
 		try {
 			for (WebElement ele : elementList) {
@@ -207,12 +212,11 @@ public class CommonActions extends PageObject {
 		}
 	}
 
-	public void scrollIntoView(WebElement element) throws InterruptedException {
+	public void scrollIntoView(WebElement element) {
 		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-		Thread.sleep(500);
 	}
 
-	public  void hoverOnElement(WebDriver driver, WebElement element) {
+	public void hoverOnElement(WebDriver driver, WebElement element) {
 		Actions act = new Actions(driver);
 		act.moveToElement(element).build().perform();
 	}
@@ -222,11 +226,63 @@ public class CommonActions extends PageObject {
 		executor.executeScript("arguments[0].click();", ele);
 	}
 
-	public  void verifyText(By locator, String textToVerify) {
+	public void verifyText(By locator, String textToVerify) {
 		webElement = findElement(locator);
-		assertEquals(webElement.getText(), textToVerify);
+		assertEquals(webElement.getText().toLowerCase().trim(), textToVerify.toLowerCase().trim());
 		logger.info("Message present on screen and verified successfully");
 
 	}
 
+	public void verifyVisibilityOfElement(By locator) {
+		try {
+			webElement = findElement(locator);
+			assertTrue(webElement.isDisplayed());
+			logger.info("Message present on screen and verified successfully");
+		} catch (Exception e) {
+			logger.error("element not found " + e.getMessage());
+			throw e;
+		}
+	}
+	
+	public void waitForVisibilityOfElement(By locator) {
+		WebDriver driver = getDriver();
+		System.out.println(getImplicitWaitTimeout().toMillis());
+		WebDriverWait wait = new WebDriverWait(driver, getImplicitWaitTimeout());
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		logger.info("Waited for element and its visible now");
+	}
+	
+	public void closeIframe(By locator) {
+		try {
+		webElement = find(locator);
+		getDriver().switchTo().frame(webElement);
+		getDriver().close();
+		}
+		catch(Exception e) {
+			logger.info("No Pop up present");
+		}
+	}
+
+	public void closePopup() {
+		WebDriver driver = getDriver();
+		String parent = driver.getWindowHandle();
+
+		Set<String> s = driver.getWindowHandles();
+
+		// Now iterate using Iterator
+		Iterator<String> I1 = s.iterator();
+
+		while (I1.hasNext()) {
+
+			String child_window = I1.next();
+
+			if (!parent.equals(child_window)) {
+				driver.switchTo().window(child_window);
+
+				logger.info(driver.switchTo().window(child_window).getTitle()+"closing popup window");
+
+				driver.close();
+			}
+		}
+	}
 }

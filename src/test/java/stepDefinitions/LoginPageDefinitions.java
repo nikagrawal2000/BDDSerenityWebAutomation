@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.Steps;
-import pages.DashboardPage;
+import pages.HomePage;
 import pages.LoginPage;
 
 public class LoginPageDefinitions{
@@ -18,12 +18,11 @@ public class LoginPageDefinitions{
     LoginPage loginPage;
  
     @Steps
-    DashboardPage dashPage;
+    HomePage homePage;
  
     
     @Given("User is on Login page")
-    public void openApplication() {
-    	loginPage.open();
+    public void openLoginPage() {
         loginPage.navigateToLoginPage();
     }
  
@@ -41,7 +40,7 @@ public class LoginPageDefinitions{
  
     @Then("User should be able to login successfully")
     public void clickOnLoginButton() {
-        dashPage.loginVerify();
+        homePage.homePageVerify();;
     }
  
     @Then("User should be able to see error message {string}")
