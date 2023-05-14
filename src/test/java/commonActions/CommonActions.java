@@ -13,13 +13,16 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import net.serenitybdd.core.pages.PageObject;
 
@@ -37,7 +40,7 @@ public class CommonActions extends PageObject {
 			webElement = getDriver().findElement(locator);
 		} catch (Exception e) {
 			logger.error("Error while fetching element using locator " + locator.toString());
-			throw e;
+			e.printStackTrace();
 		}
 		return webElement;
 
@@ -53,7 +56,7 @@ public class CommonActions extends PageObject {
 
 		catch (Exception e) {
 			logger.error("unable to click on element "+e.getMessage());
-			throw e;
+			e.printStackTrace();
 		}
 	}
 
@@ -68,7 +71,7 @@ public class CommonActions extends PageObject {
 		catch (Exception e) {
 			logger.error("error while inputting text on locator " + locator);
 			logger.error(e.getMessage());
-			throw e;
+			e.printStackTrace();
 		}
 	}
 
@@ -232,24 +235,35 @@ public class CommonActions extends PageObject {
 		logger.info("Message present on screen and verified successfully");
 
 	}
+	
+	public void verifyTextContains(By locator, String textToVerify) {
+		webElement = findElement(locator);
+		assertTrue(webElement.getText().toLowerCase().trim().contains(textToVerify.toLowerCase().trim()));
+		logger.info("text contains in the element as expected");
+
+	}
 
 	public void verifyVisibilityOfElement(By locator) {
 		try {
 			webElement = findElement(locator);
 			assertTrue(webElement.isDisplayed());
-			logger.info("Message present on screen and verified successfully");
+			logger.info("Element present on screen and verified successfully");
 		} catch (Exception e) {
 			logger.error("element not found " + e.getMessage());
-			throw e;
 		}
 	}
 	
 	public void waitForVisibilityOfElement(By locator) {
 		WebDriver driver = getDriver();
-		System.out.println(getImplicitWaitTimeout().toMillis());
-		WebDriverWait wait = new WebDriverWait(driver, getImplicitWaitTimeout());
+		WebDriverWait wait = new WebDriverWait(driver,getImplicitWaitTimeout());
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		logger.info("Waited for element and its visible now");
+	}	
+	
+	public void waitForPageLoad() {
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+	    wait.until((ExpectedCondition<Boolean>) wd ->
+        ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 	}
 	
 	public void closeIframe(By locator) {

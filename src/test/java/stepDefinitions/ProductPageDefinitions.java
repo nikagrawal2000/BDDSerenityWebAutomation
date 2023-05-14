@@ -27,7 +27,7 @@ public class ProductPageDefinitions {
 	public void userSelectsProductWithValue(String value ) {
 		productPage.selecProductByValue(value);
 		productPage.waitTillPopupVisible();
-		productPage.clickOnContinueShopping();
+		productPage.clickOnViewCart();
 	}
 
 }

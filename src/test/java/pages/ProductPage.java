@@ -33,6 +33,7 @@ public class ProductPage extends CommonActions {
 	 @Step("Click on Search")
 	 	public void clickOnSearchButton() {
 		 click(btn_Search);
+		 waitForPageLoad();
 	 }
 	 
 	 @Step("Verify Searched Products")
@@ -55,9 +56,18 @@ public class ProductPage extends CommonActions {
 	 @Step("Click on Continue Shopping")
 	 	public void clickOnContinueShopping() {
 		 WebElement modalContainer = findElement(modalWindow);
-		 WebElement modalAcceptButton = modalContainer.findElement (By.xpath (".//button[contains(text(),'Continue Shopping')]"));
+		 WebElement modalAcceptButton = modalContainer.findElement(By.xpath (".//button[contains(text(),'Continue Shopping')]"));
 		 modalAcceptButton.click();
-		 System.out.println();
+		 waitForPageLoad();
+	 }
+	 
+	 @Step("Click on View Cart")
+	 	public void clickOnViewCart() {
+		 WebElement modalContainer = findElement(modalWindow);
+		 WebElement modalViewCart = modalContainer.findElement(By.xpath (".//*[contains(text(),'View Cart')]"));
+		 scrollIntoView(modalViewCart);
+		 modalViewCart.click();
+		 waitForPageLoad();
 	 }
 
 }
