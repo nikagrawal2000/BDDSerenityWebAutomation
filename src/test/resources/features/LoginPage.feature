@@ -12,13 +12,23 @@ Then Home Page is displayed
     #And User enters password as "feX.Nin3YtG2ehE"
     #Then User should be able to login successfully
     
-@ProductSearchAndAdd
-		Scenario: Tshirt Product search and add
-			Given User is on Product page
+#@ProductSearchAddAndVerify
+#		Scenario: Tshirt Product search and add
+#			Given User is on Product page
+#			When User enters search as "tshirt"
+#			And User selects product of value "400"
+#			And User is on Shop Cart page
+#			Then User verifies cart page of name and price "tshirt" "400"
+#			And User is on Checkout page
+
+@NonRegisteredUserAccessCheckoutPage
+		Scenario: User not signed in access checkout page
+		Given User is on Product page
 			When User enters search as "tshirt"
 			And User selects product of value "400"
 			And User is on Shop Cart page
-			Then User verifies cart page of name and price "tshirt" "400"
+			And User clicks on checkout
+			Then User is on Checkout page 
 
     
     #@InValidCredentials   
@@ -31,4 +41,4 @@ Then Home Page is displayed
      #
   #Examples:
    #| username   | password  | errorMessage                      |
-   #| Admin123   | admin     | Invalid credentials               |  
+   #| test@admin.com   | admin     | Your email or password is incorrect!      |  

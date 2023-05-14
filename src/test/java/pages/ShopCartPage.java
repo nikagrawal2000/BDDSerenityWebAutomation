@@ -7,14 +7,13 @@ import net.thucydides.core.annotations.Step;
 
 public class ShopCartPage extends CommonActions {
 	
-	public static By txt_CartPage = By.xpath("//*[contains(text(),'Proceed To Checkout')]");
+	public static By btn_CartPage = By.xpath("//*[contains(text(),'Proceed To Checkout')]");
 	public static By txt_CartDesc = By.xpath("//*[@class='cart_description']//a");
 	public static By txt_CartPrice = By.xpath("//*[@class='cart_price']//p");
 	
 	 @Step("Click Cart Link")
 	    public void navigateToCartPage() {
-		 waitForVisibilityOfElement(txt_CartPage);
-		 verifyVisibilityOfElement(txt_CartPage);
+		 waitForVisibilityOfElement(btn_CartPage);
 	    }
 	 
 	 @Step("Verify Cart Description")
@@ -27,5 +26,9 @@ public class ShopCartPage extends CommonActions {
 		 verifyTextContains(txt_CartPrice, value);
 	 }
 	 
+	 @Step("Click Checkout button")
+	 	public void clickCheckoutButton() {
+		 click(btn_CartPage);
+	 }
 
 }

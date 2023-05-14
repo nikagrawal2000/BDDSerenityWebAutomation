@@ -20,5 +20,10 @@ public class ShopCartPageDefinitions {
 		shopcartPage.verifyCartDescription(cartdesc);
 		shopcartPage.verifyCartPrice(cartprice);
 	}
+	
+	@And("User clicks on checkout")
+	public void userClicksOnCheckout() {
+		shopcartPage.clickCheckoutButton();
+	}
 
 }

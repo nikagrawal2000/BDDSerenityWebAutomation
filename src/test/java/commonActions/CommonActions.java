@@ -250,6 +250,7 @@ public class CommonActions extends PageObject {
 			logger.info("Element present on screen and verified successfully");
 		} catch (Exception e) {
 			logger.error("element not found " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
