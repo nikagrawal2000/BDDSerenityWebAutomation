@@ -7,7 +7,7 @@ Serenity strongly encourages good test automation design, and supports several d
 The latest version of Serenity supports Cucumber 6.x.
 
 ### The project directory structure
-The project has build scripts for both Maven and Gradle, and follows the standard directory structure used in most Serenity projects:
+The project has build scripts for Maven, and follows the standard directory structure used in most Serenity projects:
 ```Gherkin
 src
   + main
@@ -15,14 +15,26 @@ src
     + java                        Test runners and supporting code
     + resources
       + features                  Feature files
-             search_by_keyword.feature
+             Ecommerce.feature
       + serenity.config           Base url, webdriver, report location and chromeoptions
 ```
 
-Serenity 2.2.13 integrated with WebdriverManager to download webdriver binaries.
+Serenity is integrated with WebdriverManager to download webdriver binaries.
 
-## The sample scenario
-Both variations of the sample project uses the sample Cucumber scenario. In this scenario, Sergey (who likes to search for stuff) is performing a search on the internet:
+## The Ecommerce test scenario(3 testcases)
+TC1:@RegisteredAccessCheckoutPage - Login with valid credentials and access checkout page
+In this scenario, User logs in with(pre-created) credentials
+                  searches for product and adds to cart
+                   verify the product has added
+                   can access checkout page
+                   
+ TC2:@NonRegisteredUserAccessCheckoutPage - Guest user(not signed into application) should not be able to access checkout page[Negative Scenario]
+ In this scenario, searches for product and adds to cart
+                   verify the product has added
+                   and tries to access checkout page but test case fails
+ 
+ TC3:@InValidCredentials - User with invalid login or password tries to Sign in
+ In this scenario, invalid user id and password should not be able to login
 
 ```Gherkin
 Feature: Search by keyword
