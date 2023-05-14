@@ -1,10 +1,11 @@
-# Getting started with Serenity and Cucumber
+# WebAutomation of Ecommerce with Serenity and Cucumber
 
 Serenity BDD is a library that makes it easier to write high quality automated acceptance tests, with powerful reporting and living documentation features. It has strong support for both web testing with Selenium, and API testing using RestAssured.
 
 Serenity strongly encourages good test automation design, and supports several design patterns, including classic Page Objects, the newer Lean Page Objects/ Action Classes approach, and the more sophisticated and flexible Screenplay pattern.
 
-The latest version of Serenity supports Cucumber 6.x.
+This framework was created by Nikhil Agrawal. All the licenses solely belongs to Nikhil Agrawal
+
 
 ### The project directory structure
 The project has build scripts for Maven, and follows the standard directory structure used in most Serenity projects:
@@ -16,8 +17,9 @@ src
     + resources
       + features                  Feature files
              Ecommerce.feature
-      + serenity.config           Base url, webdriver, report location and chromeoptions
+      + serenity.conf             url, webdriver, report location and chromeoptions
 ```
+![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/2a286333-5620-494f-8042-a6bfca61be61)
 
 Serenity is integrated with WebdriverManager to download webdriver binaries.
 
