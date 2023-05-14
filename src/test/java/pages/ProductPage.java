@@ -44,8 +44,9 @@ public class ProductPage extends CommonActions {
 	 @Step("Select Product By Value") 
 		 public void selecProductByValue(String value) {
 		 	scrollIntoView(getDriver().findElement(By.xpath("//h2[contains(text(),'"+value+"')]")));
-			 hoverOnElement(getDriver(), getDriver().findElement(By.xpath("//h2[contains(text(),'"+value+"')]")));
-			 click(btn_addToCart);
+			hoverOnElement(getDriver(), getDriver().findElement(By.xpath("//h2[contains(text(),'"+value+"')]")));
+			waitForVisibilityOfElement(btn_addToCart);
+			click(btn_addToCart);
 		 }
 	 
 	 @Step("Wait Till Continue Shopping Popup is visible")

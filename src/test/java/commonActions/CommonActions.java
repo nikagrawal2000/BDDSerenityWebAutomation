@@ -20,6 +20,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +44,17 @@ public class CommonActions extends PageObject {
 			e.printStackTrace();
 		}
 		return webElement;
+
+	}
+	
+	public List<WebElement> findElements(By locator) {
+		List<WebElement> ele;
+		
+			ele = getDriver().findElements(locator);
+		if(ele.isEmpty())
+			logger.error("Error while fetching element using locator " + locator.toString());
+		
+		return ele;
 
 	}
 
@@ -256,13 +268,13 @@ public class CommonActions extends PageObject {
 	
 	public void waitForVisibilityOfElement(By locator) {
 		WebDriver driver = getDriver();
-		WebDriverWait wait = new WebDriverWait(driver,getImplicitWaitTimeout());
+		WebDriverWait wait = new WebDriverWait(driver,getWaitForTimeout());
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		logger.info("Waited for element and its visible now");
 	}	
 	
 	public void waitForPageLoad() {
-		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(getDriver(), getWaitForTimeout());
 	    wait.until((ExpectedCondition<Boolean>) wd ->
         ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
 	}

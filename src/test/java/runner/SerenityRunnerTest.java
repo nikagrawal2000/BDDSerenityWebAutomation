@@ -6,7 +6,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
  
 @RunWith(CucumberWithSerenity.class) 
 @CucumberOptions(plugin = { "pretty" }, monochrome = true, dryRun = false,
-features = "src/test/resources/features/LoginPage.feature", 
+features = "src/test/resources/features/Ecommerce.feature", 
  glue="stepDefinitions") 
  
 public class SerenityRunnerTest {   

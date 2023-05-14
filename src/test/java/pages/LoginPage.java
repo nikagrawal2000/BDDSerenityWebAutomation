@@ -1,5 +1,7 @@
 package pages;
 
+import static org.junit.Assert.assertTrue;
+
 import org.openqa.selenium.By;
 
 import commonActions.CommonActions;
@@ -12,6 +14,7 @@ public class LoginPage extends CommonActions {
 	public static By link_Signin = By.cssSelector("a[href='/login']");
 	public static By btn_Login = By.cssSelector("button[data-qa='login-button']");
 	public static By txt_Login = By.cssSelector("div[class='login-form'] h2");
+	public static By txt_InvalidLogin = By.xpath("//p[contains(text(),'Your email or password is incorrect!')]");
  
     @Step("Enter Username")
     public void inputUserName(String Username) {
@@ -35,9 +38,9 @@ public class LoginPage extends CommonActions {
     }
  
     @Step("Error Message on unsuccessful login")
-    public String errorMessage() {
-        String actualErrorMessage = $(By.xpath("//*[@id='app']/div[1]/div/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/p")).getText();
-        return actualErrorMessage;
+    public void verifyerrorMessage(String errorMsg) {
+       waitForVisibilityOfElement(txt_InvalidLogin);
+       assertTrue("Invalid login error message is displayed",getDriver().findElement(txt_InvalidLogin).isDisplayed());
     }
  
 }

@@ -45,9 +45,7 @@ public class LoginPageDefinitions{
  
     @Then("User should be able to see error message {string}")
     public void unsucessfulLogin(String expectedErrorMessage) throws InterruptedException {
-         
-        String actualErrorMessage = loginPage.errorMessage();
-        Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
+         loginPage.verifyerrorMessage(expectedErrorMessage);
     }
  
 }
