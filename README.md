@@ -39,7 +39,7 @@ In this scenario, User logs in with(pre-created) credentials
 
 ### How To Run
 In the root project folder, run below command
-mvn clean verify
+`mvn clean verify
 
 ### The Action Classes implementation.
 
