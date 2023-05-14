@@ -36,73 +36,10 @@ In this scenario, User logs in with(pre-created) credentials
  TC3:@InValidCredentials - User with invalid login or password tries to Sign in
  In this scenario, invalid user id and password should not be able to login
 
-```Gherkin
-Feature: Search by keyword
 
-  Scenario: Searching for a term
-    Given Sergey is researching things on the internet
-    When he looks up "Cucumber"
-    Then he should see information about "Cucumber"
-```
-
-### The Screenplay implementation
-The sample code in the master branch uses the Screenplay pattern. The Screenplay pattern describes tests in terms of actors and the tasks they perform. Tasks are represented as objects performed by an actor, rather than methods. This makes them more flexible and composable, at the cost of being a bit more wordy. Here is an example:
-```java
-    @Given("{actor} is researching things on the internet")
-    public void researchingThings(Actor actor) {
-        actor.wasAbleTo(NavigateTo.theWikipediaHomePage());
-    }
-
-    @When("{actor} looks up {string}")
-    public void searchesFor(Actor actor, String term) {
-        actor.attemptsTo(
-                LookForInformation.about(term)
-        );
-    }
-
-    @Then("{actor} should see information about {string}")
-    public void should_see_information_about(Actor actor, String term) {
-        actor.attemptsTo(
-                Ensure.that(WikipediaArticle.HEADING).hasText(term)
-        );
-    }
-```
-
-Screenplay classes emphasise reusable components and a very readable declarative style, whereas Lean Page Objects and Action Classes (that you can see further down) opt for a more imperative style.
-
-The `NavigateTo` class is responsible for opening the Wikipedia home page:
-```java
-public class NavigateTo {
-    public static Performable theWikipediaHomePage() {
-        return Task.where("{0} opens the Wikipedia home page",
-                Open.browserOn().the(WikipediaHomePage.class));
-    }
-}
-```
-
-The `LookForInformation` class does the actual search:
-```java
-public class LookForInformation {
-    public static Performable about(String searchTerm) {
-        return Task.where("{0} searches for '" + searchTerm + "'",
-                Enter.theValue(searchTerm)
-                        .into(SearchForm.SEARCH_FIELD)
-                        .thenHit(Keys.ENTER)
-        );
-    }
-}
-```
-
-In Screenplay, we keep track of locators in light weight page or component objects, like this one:
-```java
-class SearchForm {
-    static Target SEARCH_FIELD = Target.the("search field")
-                                       .locatedBy("#searchInput");
-
-}
-```
-
-The Screenplay DSL is rich and flexible, and well suited to teams working on large test automation projects with many team members, and who are reasonably comfortable with Java and design patterns. 
+### How To Run
+In the root project folder, run below command
+mvn clean verify
 
 ### The Action Classes implementation.
 
