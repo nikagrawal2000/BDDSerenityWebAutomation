@@ -37,111 +37,23 @@ In this scenario, User logs in with(pre-created) credentials
  In this scenario, invalid user id and password should not be able to login
 
 
-### How To Run
-In the root project folder, run below command
-`mvn clean verify
-
-### The Action Classes implementation.
-
-A more imperative-style implementation using the Action Classes pattern can be found in the `action-classes` branch. The glue code in this version looks this this:
-
-```java
-    @Given("^(?:.*) is researching things on the internet")
-    public void i_am_on_the_Wikipedia_home_page() {
-        navigateTo.theHomePage();
-    }
-
-    @When("she/he looks up {string}")
-    public void i_search_for(String term) {
-        searchFor.term(term);
-    }
-
-    @Then("she/he should see information about {string}")
-    public void all_the_result_titles_should_contain_the_word(String term) {
-        assertThat(searchResult.displayed()).contains(term);
-    }
-```
-
-These classes are declared using the Serenity `@Steps` annotation, shown below:
-```java
-    @Steps
-    NavigateTo navigateTo;
-
-    @Steps
-    SearchFor searchFor;
-
-    @Steps
-    SearchResult searchResult;
-```
-
-The `@Steps`annotation tells Serenity to create a new instance of the class, and inject any other steps or page objects that this instance might need.
-
-Each action class models a particular facet of user behaviour: navigating to a particular page, performing a search, or retrieving the results of a search. These classes are designed to be small and self-contained, which makes them more stable and easier to maintain.
-
-The `NavigateTo` class is an example of a very simple action class. In a larger application, it might have some other methods related to high level navigation, but in our sample project, it just needs to open the DuckDuckGo home page:
-```java
-public class NavigateTo {
-
-    WikipediaHomePage homePage;
-
-    @Step("Open the Wikipedia home page")
-    public void theHomePage() {
-        homePage.open();
-    }
-}
-```
-
-It does this using a standard Serenity Page Object. Page Objects are often very minimal, storing just the URL of the page itself:
-```java
-@DefaultUrl("https://wikipedia.org")
-public class WikipediaHomePage extends PageObject {}
-```
-
-The second class, `SearchFor`, is an interaction class. It needs to interact with the web page, and to enable this, we make the class extend the Serenity `UIInteractionSteps`. This gives the class full access to the powerful Serenity WebDriver API, including the `$()` method used below, which locates a web element using a `By` locator or an XPath or CSS expression:
-```java
-public class SearchFor extends UIInteractionSteps {
-
-    @Step("Search for term {0}")
-    public void term(String term) {
-        $(SearchForm.SEARCH_FIELD).clear();
-        $(SearchForm.SEARCH_FIELD).sendKeys(term, Keys.ENTER);
-    }
-}
-```
-
-The `SearchForm` class is typical of a light-weight Page Object: it is responsible uniquely for locating elements on the page, and it does this by defining locators or occasionally by resolving web elements dynamically.
-```java
-class SearchForm {
-    static By SEARCH_FIELD = By.cssSelector("#searchInput");
-}
-```
-
-The last step library class used in the step definition code is the `SearchResult` class. The job of this class is to query the web page, and retrieve a list of search results that we can use in the AssertJ assertion at the end of the test. This class also extends `UIInteractionSteps` and
-```java
-public class SearchResult extends UIInteractionSteps {
-    public String displayed() {
-        return find(WikipediaArticle.HEADING).getText();
-    }
-}
-```
-
-The `WikipediaArticle` class is a lean Page Object that locates the article titles on the results page:
-```java
-public class WikipediaArticle {
-    public static final By HEADING =  By.id("firstHeading");
-}
-```
-
-The main advantage of the approach used in this example is not in the lines of code written, although Serenity does reduce a lot of the boilerplate code that you would normally need to write in a web test. The real advantage is in the use of many small, stable classes, each of which focuses on a single job. This application of the _Single Responsibility Principle_ goes a long way to making the test code more stable, easier to understand, and easier to maintain.
 
 ## Executing the tests
-To run the sample project, you can either just run the `CucumberTestSuite` test runner class, or run either `mvn verify` or `gradle test` from the command line.
+To run the sample project, you can either just run the `SerenityRunnerTest` test runner class, or run `mvn verify`below command from the command line.
+```json
+$ mvn clean verify
+```
 
 By default, the tests will run using Chrome. You can run them in Firefox by overriding the `driver` system property, e.g.
 ```json
 $ mvn clean verify -Ddriver=firefox
 ```
-The test results will be recorded in the `report` directory.
+The test results will be recorded in the `report/index.html` directory. End of test result will give below output for easy copy link of report
+```json
+[INFO] SERENITY REPORTS
+[INFO]   - Full Report: file:///C:/Users/nik_a/eclipse-workspace/WebAutomationBDDSerenity/report/index.html
+[INFO]   - Single Page HTML Summary: file:///C:/Users/nik_a/eclipse-workspace/WebAutomationBDDSerenity/report/serenity-summary.html
+```
 
 ## Generating the reports
 Since the Serenity reports contain aggregate information about all of the tests, they are not generated after each individual test (as this would be extremenly inefficient). Rather, The Full Serenity reports are generated by the `serenity-maven-plugin`. You can trigger this by running `mvn serenity:aggregate` from the command line or from your IDE.
