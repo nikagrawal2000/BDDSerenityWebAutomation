@@ -222,8 +222,9 @@ public class CommonActions extends PageObject {
 		executor.executeScript("arguments[0].click();", ele);
 	}
 
-	public  void verifyMessagePresent(WebElement element, String textToVerify) {
-		assertEquals(element.getText(), textToVerify);
+	public  void verifyText(By locator, String textToVerify) {
+		webElement = findElement(locator);
+		assertEquals(webElement.getText(), textToVerify);
 		logger.info("Message present on screen and verified successfully");
 
 	}

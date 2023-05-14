@@ -5,11 +5,13 @@ import org.junit.Assert;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.pages.PageObject;
+import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.Steps;
 import pages.DashboardPage;
 import pages.LoginPage;
- 
-public class LoginPageDefinitions {
+
+public class LoginPageDefinitions{
      
  
     @Steps
@@ -18,10 +20,11 @@ public class LoginPageDefinitions {
     @Steps
     DashboardPage dashPage;
  
-    @Given("User is on Home page")
+    
+    @Given("User is on Login page")
     public void openApplication() {
-        loginPage.open();
-        System.out.println("Page is opened");
+    	loginPage.open();
+        loginPage.navigateToLoginPage();
     }
  
     @When("User enters username as {string}")
@@ -33,7 +36,6 @@ public class LoginPageDefinitions {
     @When("User enters password as {string}")
     public void enterPassword(String passWord) {
         loginPage.inputPassword(passWord);
- 
         loginPage.clickLogin();
     }
  
