@@ -14,13 +14,13 @@ public class ShopCartPageDefinitions {
 	public void openProductPage() {
 		shopcartPage.navigateToCartPage();
 	}
-	
+
 	@And("User verifies cart page of name and price {string} {string}")
-	public void userVerifiesProductAndValue(String cartdesc, String cartprice ) {
+	public void userVerifiesProductAndValue(String cartdesc, String cartprice) {
 		shopcartPage.verifyCartDescription(cartdesc);
 		shopcartPage.verifyCartPrice(cartprice);
 	}
-	
+
 	@And("User clicks on checkout")
 	public void userClicksOnCheckout() {
 		shopcartPage.clickCheckoutButton();

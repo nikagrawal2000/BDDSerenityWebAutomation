@@ -7,7 +7,7 @@ import pages.CheckoutPage;
 public class CheckoutPageDefinitions {
 	@Steps
 	CheckoutPage checkoutPage;
-	
+
 	@And("User is on Checkout page")
 	public void verifyOnCheckoutPage() {
 		checkoutPage.verifyCheckoutPage();
