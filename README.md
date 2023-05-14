@@ -27,18 +27,27 @@ Serenity is integrated with WebdriverManager to download webdriver binaries.
 
 ## The Ecommerce test scenario(3 testcases)
 TC1:@RegisteredAccessCheckoutPage - Login with valid credentials and access checkout page
-In this scenario, User logs in with(pre-created) credentials
-                  searches for product and adds to cart
-                   verify the product has added
-                   can access checkout page
+In this scenario, 
+
+- User logs in with(pre-created) credentials
+
+- searches for product and adds to cart
+
+- verifies the product has added
+- is able access checkout page
                    
  TC2:@NonRegisteredUserAccessCheckoutPage - Guest user(not signed into application) should not be able to access checkout page[Negative Scenario]
- In this scenario, searches for product and adds to cart
-                   verify the product has added
-                   and tries to access checkout page but test case fails
+ In this scenario
+ 
+- User searches for product and adds to cart
+ 
+- verify the product has added
+ 
+- and tries to access checkout page but test case fails
  
  TC3:@InValidCredentials - User with invalid login or password tries to Sign in
- In this scenario, invalid user id and password should not be able to login
+ In this scenario, 
+ - invalid user id and password should not be able to login
 
 
 
@@ -109,10 +118,3 @@ $ mvn clean verify -Denvironment=staging
 ```
 
 See [**this article**](https://johnfergusonsmart.com/environment-specific-configuration-in-serenity-bdd/) for more details about this feature.
-
-## Want to learn more?
-For more information about Serenity BDD, you can read the [**Serenity BDD Book**](https://serenity-bdd.github.io/theserenitybook/latest/index.html), the official online Serenity documentation source. Other sources include:
-* **[Learn Serenity BDD Online](https://expansion.serenity-dojo.com/)** with online courses from the Serenity Dojo Training Library
-* **[Byte-sized Serenity BDD](https://www.youtube.com/channel/UCav6-dPEUiLbnu-rgpy7_bw/featured)** - tips and tricks about Serenity BDD
-* For regular posts on agile test automation best practices, join the **[Agile Test Automation Secrets](https://www.linkedin.com/groups/8961597/)** groups on [LinkedIn](https://www.linkedin.com/groups/8961597/) and [Facebook](https://www.facebook.com/groups/agiletestautomation/)
-* [**Serenity BDD Blog**](https://johnfergusonsmart.com/category/serenity-bdd/) - regular articles about Serenity BDD
