@@ -36,7 +36,7 @@ In this scenario,
 - verifies the product has added
 - is able access checkout page
                    
- TC2:@NonRegisteredUserAccessCheckoutPage - Guest user(not signed into application) should not be able to access checkout page[Negative Scenario]
+ TC2:@NonRegisteredUserAccessCheckoutPage - Guest user(not signed into application) should not be able to access checkout page[**Negative Scenario**]
  In this scenario
  
 - User searches for product and adds to cart
@@ -74,7 +74,7 @@ The test results will be recorded in the `report/index.html` directory. End of t
 [INFO]   - Full Report: file:///C:/Users/nik_a/eclipse-workspace/WebAutomationBDDSerenity/report/index.html
 [INFO]   - Single Page HTML Summary: file:///C:/Users/nik_a/eclipse-workspace/WebAutomationBDDSerenity/report/serenity-summary.html
 ```
-See end of page for sample reports screenshots
+See end of page for sample reports screenshots with screenshots
 ## Simplified WebDriver configuration and other Serenity extras
 The sample projects both use some Serenity features which make configuring the tests easier. In particular, Serenity uses the `serenity.conf` file in the `src/test/resources` directory to configure test execution options.  
 ### Webdriver configuration
@@ -92,6 +92,8 @@ chrome.switches="""--start-maximized;--test-type;--no-sandbox;--ignore-certifica
 ```
 
 Serenity uses WebDriverManager to download the WebDriver binaries automatically before the tests are executed.
+
+See [**this**](https://serenity-bdd.github.io/docs/reference/serenity-properties#properties) for properties details in serenity config.
 
 ### Environment-specific configurations
 We can also configure environment-specific properties and options, so that the tests can be run in different environments. Here, we configure three environments, __dev__, _staging_ and _prod_, with different starting URLs for each:
@@ -116,10 +118,8 @@ You use the `environment` system property to determine which environment to run 
 ```json
 $ mvn clean verify -Denvironment=staging
 ```
+See [**this article**](https://johnfergusonsmart.com/environment-specific-configuration-in-serenity-bdd/) for more details about this feature.
 ### Sample Reports
 ![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/f91c6acf-2d29-42ba-b95e-5edb9aaaff6c)
 ![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/6e56e693-666d-43f8-abe1-c1188b8aa3d3)
 ![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/d325701e-58d8-4ad9-988c-eb631a2e3d12)
-
-
-See [**this article**](https://johnfergusonsmart.com/environment-specific-configuration-in-serenity-bdd/) for more details about this feature.
