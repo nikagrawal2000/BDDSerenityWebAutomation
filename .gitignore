@@ -17,6 +17,7 @@ buildNumber.properties
 .classpath
 .setting
 .settings
+.settings/
 report/
 .stackdump
 
