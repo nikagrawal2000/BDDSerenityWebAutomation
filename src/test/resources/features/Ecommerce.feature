@@ -1,4 +1,4 @@
-Feature: Login Page
+Feature: Ecommerce Application Test
 
 Background: User launches application
 Given User Launches Application
@@ -22,7 +22,7 @@ Then Home Page is displayed
    | tshirt  			 | 400   				 |
 
 @NonRegisteredUserAccessCheckoutPage
-		Scenario: User not signed in tries to access checkout page
+		Scenario: Guest user tries to access checkout page
 		Given User is on Product page 
 			When User enters search as "tshirt"
 			And User selects product of value "400"
