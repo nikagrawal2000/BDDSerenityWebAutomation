@@ -8,8 +8,8 @@ import net.thucydides.core.annotations.Step;
 public class CheckoutPage extends CommonActions {
 	public static By txt_Checkout = By.className("active");
 
-	 @Step("Verify on Checkout Page")
-	 public void verifyCheckoutPage() {
-	     verifyText(txt_Checkout, "Checkout");
-	    }
+	@Step("Verify on Checkout Page")
+	public void verifyCheckoutPage() {
+		verifyText(txt_Checkout, "Checkout");
+	}
 }
