@@ -94,6 +94,14 @@ public class CommonActions extends PageObject {
 	public void scrollIntoView(WebElement element) {
 		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
+	
+	public void scrollIntoCenterViewOfElement(By locator) {
+		WebElement element = findElement(locator);
+		String scrollElementIntoMiddle = "var viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
+                + "var elementTop = arguments[0].getBoundingClientRect().top;"
+                + "window.scrollBy(0, elementTop-(viewPortHeight/2));";
+		((JavascriptExecutor) getDriver()).executeScript(scrollElementIntoMiddle, element);
+	}
 
 	public void hoverOnElement(WebDriver driver, WebElement element) {
 		Actions act = new Actions(driver);
