@@ -15,11 +15,11 @@ The project has build scripts for Maven, and follows the standard directory stru
 src
   + main
   + test
-    + java                        Test runners and supporting code
+    + java                        Test runners, POM and supporting code
     + resources
       + features                  Feature files
              Ecommerce.feature
-      + serenity.conf             url, webdriver, report location and chromeoptions
+      + serenity.conf             Settings - url, webdriver, report location and chromeoptions
 ```
 ![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/2a286333-5620-494f-8042-a6bfca61be61)
 
@@ -53,17 +53,17 @@ In this scenario,
 
 ## Executing the tests
 To run the sample project, you can either just run the `SerenityRunnerTest` test runner class, or run `mvn verify`below command from the command line.
-```json
+```
 $ mvn clean verify
 ```
 
 By default, the tests will run using Chrome. You can run them in Firefox by overriding the `driver` system property, e.g.
-```json
+```
 $ mvn clean verify -Ddriver=firefox
 ```
 
 To run only specific testcase(or rather tags), use below e.g.
-```json
+```
 $ mvn clean verify -Dtags="NonRegisteredUserAccessCheckoutPage"
 ```
 
@@ -74,7 +74,7 @@ The test results will be recorded in the `report/index.html` directory. End of t
 [INFO]   - Full Report: file:///C:/Users/nik_a/eclipse-workspace/WebAutomationBDDSerenity/report/index.html
 [INFO]   - Single Page HTML Summary: file:///C:/Users/nik_a/eclipse-workspace/WebAutomationBDDSerenity/report/serenity-summary.html
 ```
-
+See end of page for sample reports screenshots
 ## Simplified WebDriver configuration and other Serenity extras
 The sample projects both use some Serenity features which make configuring the tests easier. In particular, Serenity uses the `serenity.conf` file in the `src/test/resources` directory to configure test execution options.  
 ### Webdriver configuration
@@ -116,5 +116,10 @@ You use the `environment` system property to determine which environment to run 
 ```json
 $ mvn clean verify -Denvironment=staging
 ```
+### Sample Reports
+![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/f91c6acf-2d29-42ba-b95e-5edb9aaaff6c)
+![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/6e56e693-666d-43f8-abe1-c1188b8aa3d3)
+![image](https://github.com/nikagrawal2000/BDDSerenityWebAutomation/assets/3139455/d325701e-58d8-4ad9-988c-eb631a2e3d12)
+
 
 See [**this article**](https://johnfergusonsmart.com/environment-specific-configuration-in-serenity-bdd/) for more details about this feature.
